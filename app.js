@@ -15,9 +15,12 @@ setInterval(() => {
    console.log("Hello World");
 }, 1000);*/
 
+const names = require('./module1');
+const funcs = require('./functions');
+const objs = require('./objects1');
 
+console.log(objs);
 
-
-sayHello("Ahmed Mohamady");
-sayHello(name1);
-sayHello(name2);
+funcs("Ahmed Mohamady");
+funcs(names.name1);
+funcs(names.name2);
