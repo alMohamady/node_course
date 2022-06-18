@@ -1,14 +1,11 @@
-const os = require('os');
+const path = require('path');
 
-//const user = os.userInfo();
-//console.log(user);
-//console.log(os.uptime());
+console.log(path.sep);
 
-const curruntOs = {
-    name: os.type(),
-    release: os.release(),
-    memory: os.totalmem(),
-    freeSp: os.freemem() 
-}
+const filePath = path.join('/content', 'myFolder', 'test.txt');
+console.log(filePath);
+console.log(path.basename(filePath));
+const absolute = path.resolve(__dirname, "content", "myFolder", "test.txt");
+console.log(absolute);
 
-console.log(curruntOs);
+
