@@ -1,11 +1,13 @@
-const path = require('path');
+const {readFileSync, writeFileSync} = require('fs');
 
-console.log(path.sep);
+const almohamady = readFileSync('./content/almohamady.txt','utf-8');
+const test = readFileSync('./content/myFolder/test.txt','utf-8');
 
-const filePath = path.join('/content', 'myFolder', 'test.txt');
-console.log(filePath);
-console.log(path.basename(filePath));
-const absolute = path.resolve(__dirname, "content", "myFolder", "test.txt");
-console.log(absolute);
+console.log(almohamady, test);
+
+writeFileSync('./content/result.txt', `al Mohamady : ${almohamady} , test : ${test} `, {flag: 'a'});
+
+//const result = readFileSync('./content/result.txt','utf-8');
+//console.log(result);
 
 
