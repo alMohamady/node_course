@@ -1,13 +1,33 @@
-const {readFileSync, writeFileSync} = require('fs');
+const {readFile, writeFile} = require('fs');
 
-const almohamady = readFileSync('./content/almohamady.txt','utf-8');
-const test = readFileSync('./content/myFolder/test.txt','utf-8');
 
-console.log(almohamady, test);
+readFile('./content/almohamady.txt','utf-8', (err, result) => {
 
-writeFileSync('./content/result.txt', `al Mohamady : ${almohamady} , test : ${test} `, {flag: 'a'});
+    var myResult, myResult2;
+    if (err) {
+        console.log(err);
+        return;
+    } else {
+        myResult = result;
+        console.log(result);
+        readFile('./content/myFolder/test.txt', 'utf-8', (err2, result2) => {
 
-//const result = readFileSync('./content/result.txt','utf-8');
-//console.log(result);
+            if (err2) {
+                console.log(err2);
+                return;
+            }
+            myResult2 = result2;
+            console.log(myResult2);
+            writeFile( "./content/result-async.txt", `1 : ${myResult} , 2 : ${myResult2}`,{flag: 'a'} , (wErr, wResult) => {
+                 if (wErr){
+                     console.log(wErr);
+                     return;
+                 }
+                 console.log(wResult);
+                 console.log('Done :)');
+            });
+        });
+    } 
+});
 
 
