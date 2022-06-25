@@ -1,11 +1,20 @@
-const {readFileSync, writeFileSync} = require('fs');
+const http = require('http');
 
-console.log('Start System');
-const almohamady = readFileSync('./content/almohamady.txt');
-const test = readFileSync('./content/myFolder/test.txt');
+const server = http.createServer((req, res) => {
 
-writeFileSync('./content/result.txt', `1 : ${almohamady} , 2 : ${test}`);
-console.log('End task');
+    if (req.url === '/') {
+        res.end('Welcome in the home page');
+    }
+    else if (req.url === '/about') {
+        res.end('hi there it about us');
+    } else { 
 
-console.log('Done :)');
+        res.end (`
+            <h1> no content here </h1>
+            <p> sorry there's no content here <p/>
+            <a href="/"> to home </a> 
+        `);
+    }
+});
 
+server.listen(5000);
