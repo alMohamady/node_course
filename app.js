@@ -1,11 +1,9 @@
-const http = require('http');
+const {createReadStream} = require('fs');
 
-const server = http.createServer();
+const stream = createReadStream('./content/bidDataasda.txt', {highWaterMark: 1000000 , encoding: 'utf-8' });
 
-server.on('request', (req , res ) => {
-   res.end('welcome :)');
+stream.on('data', (result) => {
+    console.log(result);
 });
 
-server.listen(5000, () => {
-    console.log('server listening on port : 5000');
-});
+stream.on('error', (err) => console.log(err));
