@@ -1,13 +1,11 @@
-const EventEmitter = require('events');
+const http = require('http');
 
-const customEmitter = new EventEmitter();
+const server = http.createServer();
 
-customEmitter.on('response' , (name , age) => {
-    console.log(`we are here name is ${name}, age is ${age} `);
+server.on('request', (req , res ) => {
+   res.end('welcome :)');
 });
 
-customEmitter.on('response' , () => {
-    console.log(`we are here again name `);
+server.listen(5000, () => {
+    console.log('server listening on port : 5000');
 });
-
-customEmitter.emit('response', "ahmed", 37);
