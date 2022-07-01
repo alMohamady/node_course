@@ -1,9 +1,16 @@
-const {createReadStream} = require('fs');
+var http = require('http');
+var fs = require('fs');
 
-const stream = createReadStream('./content/bidDataasda.txt', {highWaterMark: 1000000 , encoding: 'utf-8' });
+http.createServer(function (req, res) {
 
-stream.on('data', (result) => {
-    console.log(result);
-});
+    const fileStram = fs.createReadStream('./content/bidData.txt', 'utf-8');
 
-stream.on('error', (err) => console.log(err));
+    fileStram.on('open', () => {
+        fileStram.pipe(res);
+    });
+
+    fileStram.on('error', (err) => {
+        res.end(err);
+    });
+
+}).listen(5000);
