@@ -1,21 +1,13 @@
-const {readFile, writeFile} = require('fs').promises;
+const EventEmitter = require('events');
 
-//const util = require('util');
-//const readFileUtile = util.promisify(readFile);
-//const writeFileUtile = util.promisify(writeFile);
+const customEmitter = new EventEmitter();
 
-const start = async() => {
-    try {
-        const file1 = await readFile('./content/almohamady.txt', 'utf-8');
-        const file2 = await readFile('./content/myFolder/test.txt', 'utf-8');
-        console.log(file1, file2);
-        await writeFile('./content/result-util.text'
-                           , `file1 : ${file1}, file 2 : ${file2}  : direct promises`
-                           , {flag: 'a'});
-    }
-    catch(err) {
-        console.log(err);
-    }
-}
+customEmitter.on('response' , (name , age) => {
+    console.log(`we are here name is ${name}, age is ${age} `);
+});
 
-start();
+customEmitter.on('response' , () => {
+    console.log(`we are here again name `);
+});
+
+customEmitter.emit('response', "ahmed", 37);
