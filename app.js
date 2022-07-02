@@ -1,16 +1,10 @@
-var http = require('http');
-var fs = require('fs');
+const http = require('http');
 
-http.createServer(function (req, res) {
+const server = http.createServer( (req, res) => {
 
-    const fileStram = fs.createReadStream('./content/bidData.txt', 'utf-8');
+   res.writeHead(200, {'content-type' : 'text/plain'});
+   res.write('<h1> Welcome in the home page </h1>');
+   res.end();
+});
 
-    fileStram.on('open', () => {
-        fileStram.pipe(res);
-    });
-
-    fileStram.on('error', (err) => {
-        res.end(err);
-    });
-
-}).listen(5000);
+server.listen(5000);
