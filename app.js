@@ -1,17 +1,13 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 
+app.use(express.static('./public'))
 
 app.get('/', (req, res) => {
 
-   console.log('User invoke');
-   res.status(200).send('Welcome in home page');
-});
+   res.sendFile(path.resolve(__dirname, './headers-css-master/header-1.html'));
 
-app.get('/about', (req , res) => {
-
-   console.log('this is about page');
-   res.status(200).send('About Our server');
 });
 
 app.all('*', (req, res) => {
