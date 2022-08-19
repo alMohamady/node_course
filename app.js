@@ -33,6 +33,26 @@ app.get('/api/users/:userId/data/:hello', (req, res) => {
    res.json('Hello world');
 });
 
+app.get('/api/v1/query', (req, res) => {
+   console.log(req.query);
+   const {search, limit} = req.query;
+   let sUsers = [...users];
+   if (search) {
+      sUsers = sUsers.filter((user) => {
+        return user.firstName.startsWith(search.toUpperCase());
+      });
+   }
+   if (limit) {
+      sUsers = sUsers.slice(0, Number(limit));
+   }
+   if (sUsers.length < 1) {
+      res.status(200).json(`No user start with ${search} `);
+   } else {
+      res.status(200).json(sUsers);
+   }
+   //res.json('Hi query');
+});
+
 
 app.listen(5000, () =>{
    console.log('server on 5000');
