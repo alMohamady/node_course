@@ -1,29 +1,22 @@
 const express = require('express');
 const app = express();
-const logger = require('./logger');
-const auth = require('./authorize');
+let { languages } = require('./my-data');
 
-app.use([auth, logger]);
+app.use(express.static('./forms'));
+app.use(express.urlencoded({extended: false}));
 
-app.get('/', (req,res) => {
-   console.log(req.user);
-   res.send('Home');
+app.get('/api/langauges', (req, res) => {
+   res.status(200).json({success: true, data: languages});
+
 });
 
-app.get('/about', (req,res) => {
-   res.send('about');
-});
+app.post('/add-lang', (req, res) => {
+  const {langname} = req.body;
+  if (langname) {
+    return res.status(200).send(`New lang ${langname}`);
+  }
 
-app.get('/api/products', (req,res) => {
-   res.send('products');
-});
-
-app.get('/api/items',(req,res) => {
-   res.send('items');
-});
-
-app.get('/v1/lists', (req,res) => {
-   res.send('lists');
+  res.status(401).send('can\'t accept an empty value');
 });
 
 app.listen(5000, () =>{
