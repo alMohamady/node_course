@@ -4,11 +4,25 @@ let { languages } = require('./my-data');
 
 app.use(express.static('./forms'));
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 app.get('/api/langauges', (req, res) => {
    res.status(200).json({success: true, data: languages});
-
 });
+
+app.post('/api/langauges', (req, res) => {
+  const {name} = req.body;
+  if (!name) {
+    return res.status(201).json({
+      success: false, 
+      msg:'ca\'t accept an empty name'
+    });
+  }
+  res.status(200).json({
+    success:true, 
+    lang: name 
+  });
+}) 
 
 app.post('/add-lang', (req, res) => {
   const {langname} = req.body;
