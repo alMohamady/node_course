@@ -56,6 +56,22 @@ app.put('/api/langauges/:id', (req, res) => {
    res.status(200).json({success: true, data: newList});
 });
 
+app.delete('/api/langauges/:id', (req, res) => {
+  const { id } = req.params;
+  const lang = languages.find((l) => l.id === Number(id));
+  if (!lang) {
+   return res.status(404).json(
+     {
+       success:false, 
+       msg: `id ${id} no there` 
+     }
+   );
+  }
+
+  const newList = languages.filter((l) => l.id !== Number(id));
+  return res.status(200).json({success: true, data: newList});
+});
+
 app.listen(5000, () =>{
    console.log('server on 5000');
 });
