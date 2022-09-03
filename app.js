@@ -13,7 +13,7 @@ app.get('/api/langauges', (req, res) => {
 app.post('/api/langauges', (req, res) => {
   const {name} = req.body;
   if (!name) {
-    return res.status(201).json({
+    return res.status(400).json({
       success: false, 
       msg:'ca\'t accept an empty name'
     });
